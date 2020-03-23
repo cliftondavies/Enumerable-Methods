@@ -28,6 +28,12 @@ module Enumerable
   end
 
   def my_any?
+    result = false
+
+    array.length.times do |index|
+      result = true if yield(array[index])
+    end
+    result
   end
 
   def my_none?
