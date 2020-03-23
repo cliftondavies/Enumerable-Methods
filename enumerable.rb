@@ -14,25 +14,21 @@ module Enumerable
   def my_select(array)
     result = []
 
-    my_each(array) { |item| result << item if yield(item) == true }
+    my_each(array) { |item| result << item if yield(item) }
     result
   end
 
   def my_all?(array)
     result = true
 
-    array.length.times do |index|
-      result = false unless yield(array[index])
-    end
+    my_each(array) { |item| result = false unless yield(item) }
     result
   end
 
   def my_any?
     result = false
 
-    array.length.times do |index|
-      result = true if yield(array[index])
-    end
+    my_each(array) { |item| result = true if yield(item) }
     result
   end
 
