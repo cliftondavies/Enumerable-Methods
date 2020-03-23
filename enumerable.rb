@@ -11,11 +11,19 @@ module Enumerable
     nil
   end
 
-=begin
-  def my_select
+  def my_select(array)
+    result = []
+
+    my_each(array) { |item| result << item if yield(item) == true }
+    result
   end
 
-  def my_all?
+  def my_all?(array)
+    result = true
+
+    my_each(array) { |item| result == false if yield(item) == false }
+
+    result
   end
 
   def my_any?
@@ -32,5 +40,4 @@ module Enumerable
 
   def my_inject
   end
-=end
 end
