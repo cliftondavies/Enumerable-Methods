@@ -15,6 +15,7 @@ module Enumerable
     result = []
 
     my_each(array) { |item| result << item if yield(item) }
+
     result
   end
 
@@ -22,6 +23,7 @@ module Enumerable
     result = true
 
     my_each(array) { |item| result = false unless yield(item) }
+
     result
   end
 
@@ -29,10 +31,16 @@ module Enumerable
     result = false
 
     my_each(array) { |item| result = true if yield(item) }
+
     result
   end
 
   def my_none?
+    result = true
+
+    my_each(array) { |item| result = false if yield(item) }
+
+    result
   end
 
   def my_count
