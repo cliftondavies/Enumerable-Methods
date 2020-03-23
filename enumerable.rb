@@ -48,7 +48,7 @@ module Enumerable
 
     my_each(array) do |item|
       if block_given?
-        counter += 1 if yeild(item)
+        counter += 1 if yield(item)
       elsif item == value
         counter += 1
       else
@@ -66,6 +66,11 @@ module Enumerable
     result
   end
 
-  def my_inject
+  def my_inject(array, value = 0)
+    result = value
+
+    my_each(array) { |item| result = yield(result, item) }
+
+    result
   end
 end
