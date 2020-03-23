@@ -21,8 +21,9 @@ module Enumerable
   def my_all?(array)
     result = true
 
-    my_each(array) { |item| result == false if yield(item) == false }
-
+    array.length.times do |index|
+      result = false unless yield(array[index])
+    end
     result
   end
 
