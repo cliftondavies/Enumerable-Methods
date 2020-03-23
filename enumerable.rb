@@ -58,7 +58,12 @@ module Enumerable
     counter
   end
 
-  def my_map
+  def my_map(array)
+    result = []
+
+    my_each(array) { |item| result << yield(item) }
+
+    result
   end
 
   def my_inject
