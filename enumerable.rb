@@ -66,11 +66,17 @@ module Enumerable
     result
   end
 
-  def my_inject(array, value = 0)
-    result = value
+  def my_inject(array, value = nil)
+    if value
+      result = value
 
-    my_each(array) { |item| result = yield(result, item) }
+      my_each(array) { |item| result = yield(result, item) }
+    else
+      result = array[0]
+      array.shift
 
+      my_each(array) { |item| result = yield(result, item) }
+    end
     result
   end
 end
