@@ -84,3 +84,16 @@ module Enumerable
     my_inject(array) { |result, item| result * item }
   end
 end
+
+def my_map_with_proc(array, proc = nil)
+  result = []
+
+  my_each(array) do |item|
+    result << if proc
+                proc.call(item)
+              else
+                yield(item)
+              end
+  end
+  result
+end
