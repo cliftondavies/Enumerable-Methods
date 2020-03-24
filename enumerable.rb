@@ -75,8 +75,12 @@ module Enumerable
       result = array[0]
       array.shift
 
-      my_each(array) { |item| result = yield(result, item) }
+      my_each_with_index(array) { |item, _index| result = yield(result, item) }
     end
     result
+  end
+
+  def multiply_els(array)
+    my_inject(array) { |result, item| result * item }
   end
 end
