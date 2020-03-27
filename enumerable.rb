@@ -7,10 +7,12 @@ module Enumerable
     self
   end
 
-  def my_each_with_index(array)
-    0.upto(array.length - 1) { |index| yield(array[index], index) }
+  def my_each_with_index
+    return to_enum(:my_each_with_index) unless block_given?
 
-    nil
+    0.upto(to_a.length - 1) { |index| yield(to_a[index], index) }
+
+    self
   end
 
   def my_select(array)
