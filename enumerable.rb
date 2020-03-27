@@ -15,10 +15,12 @@ module Enumerable
     self
   end
 
-  def my_select(array)
+  def my_select
+    return to_enum(:my_select) unless block_given?
+
     result = []
 
-    my_each(array) { |item| result << item if yield(item) }
+    to_a.my_each { |item| result << item if yield(item) }
 
     result
   end
