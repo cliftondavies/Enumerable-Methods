@@ -25,11 +25,30 @@ module Enumerable
     result
   end
 
-  def my_all?(array)
+  # def my_all?(array)
+  #   result = true
+
+  #   my_each(array) { |item| result = false unless yield(item) }
+
+  #   result
+  # end
+
+  def my_all?(pattern = nil)
     result = true
 
-    my_each(array) { |item| result = false unless yield(item) }
-
+    if pattern
+      if pattern.is_a?(Class)
+        to_a.my_each { |item| result = false unless item.is_a?(pattern) }
+      elsif pattern.is_a?(Regexp)
+        to_a.my_each { |item| result = false unless item.match(pattern) }
+      else
+        to_a.my_each { |item| result = false unless item == pattern }
+      end
+    elsif block_given?
+      to_a.my_each { |item| result = false unless yield(item) }
+    else
+      to_a.my_each { |item| result = false unless item }
+    end
     result
   end
 
