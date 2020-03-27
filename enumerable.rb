@@ -1,8 +1,10 @@
 module Enumerable
-  def my_each(array)
-    array.length.times { |index| yield(array[index]) }
+  def my_each
+    return to_enum(:my_each) unless block_given?
 
-    nil
+    to_a.length.times { |index| yield(to_a[index]) }
+
+    self
   end
 
   def my_each_with_index(array)
@@ -83,17 +85,17 @@ module Enumerable
   def multiply_els(array)
     my_inject(array) { |result, item| result * item }
   end
-end
 
-def my_map_with_proc(array, proc = nil)
-  result = []
+  def my_map_with_proc(array, proc = nil)
+    result = []
 
-  my_each(array) do |item|
-    result << if proc
-                proc.call(item)
-              else
-                yield(item)
-              end
+    my_each(array) do |item|
+      result << if proc
+                  proc.call(item)
+                else
+                  yield(item)
+                end
+    end
+    result
   end
-  result
 end
