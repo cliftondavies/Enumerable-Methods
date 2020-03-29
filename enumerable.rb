@@ -1,4 +1,6 @@
 module Enumerable
+  include Pattern
+
   def my_each
     return to_enum(:my_each) unless block_given?
 
@@ -25,46 +27,6 @@ module Enumerable
     result
   end
 
-  # def my_all?(array)
-  #   result = true
-
-  #   my_each(array) { |item| result = false unless yield(item) }
-
-  #   result
-  # end
-
-  # def my_all?(pattern = nil)
-  #   result = true
-
-  #   if pattern
-  #     if pattern.is_a?(Class)
-  #       to_a.my_each { |item| result = false unless item.is_a?(pattern) }
-  #     elsif pattern.is_a?(Regexp)
-  #       to_a.my_each { |item| result = false unless item.match(pattern) }
-  #     else
-  #       to_a.my_each { |item| result = false unless item == pattern }
-  #     end
-  #   elsif block_given?
-  #     to_a.my_each { |item| result = false unless yield(item) }
-  #   else
-  #     to_a.my_each { |item| result = false unless item }
-  #   end
-  #   result
-  # end
-
-  def my_all_pattern?(pattern)
-    result = true
-
-    if pattern.is_a?(Class)
-      to_a.my_each { |item| result = false unless item.is_a?(pattern) }
-    elsif pattern.is_a?(Regexp)
-      to_a.my_each { |item| result = false unless item.match(pattern) }
-    else
-      to_a.my_each { |item| result = false unless item == pattern }
-    end
-    result
-  end
-
   def my_all?(pattern = nil)
     result = true
 
@@ -78,11 +40,16 @@ module Enumerable
     result
   end
 
-  def my_any?(array)
+  def my_any?(pattern = nil)
     result = false
 
-    my_each(array) { |item| result = true if yield(item) }
-
+    if pattern
+      result = my_any_pattern?(pattern)
+    elsif block_given?
+      to_a.my_each { |item| result = true if yield(item) }
+    else
+      to_a.my_each { |item| result = true if item }
+    end
     result
   end
 
