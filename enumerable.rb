@@ -66,16 +66,16 @@ module Enumerable
     result
   end
 
-  def my_count(array, value = nil)
+  def my_count(value = nil)
     counter = 0
 
-    my_each(array) do |item|
+    to_a.my_each do |item|
       if block_given?
         counter += 1 if yield(item)
       elsif item == value
         counter += 1
       else
-        counter = array.length unless value
+        counter = to_a.length unless value
       end
     end
     counter
