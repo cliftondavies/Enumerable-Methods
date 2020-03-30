@@ -53,11 +53,16 @@ module Enumerable
     result
   end
 
-  def my_none?(array)
+  def my_none?(pattern = nil)
     result = true
 
-    my_each(array) { |item| result = false if yield(item) }
-
+    if pattern
+      result = !my_any?(pattern)
+    elsif block_given?
+      to_a.my_each { |item| result = false if yield(item) }
+    else
+      result = !my_any?
+    end
     result
   end
 
