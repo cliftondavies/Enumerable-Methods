@@ -96,16 +96,29 @@ module Enumerable
     result
   end
 
-  def my_inject(array, value = nil)
-    if value
-      result = value
+  def my_inject(*param)
+    arr = to_a
 
-      my_each(array) { |item| result = yield(result, item) }
+    if block_given?
+      if param.size == 1
+        result = param[0]
+
+        arr.my_each { |item| result = yield(result, item) }
+      else
+        result = arr[0]
+        arr.shift
+
+        arr.my_each_with_index { |item, _index| result = yield(result, item) }
+      end
+    elsif param.size == 2
+      result = param[0]
+
+      arr.my_each { |item| result = result.method(param[1]).call(item) }
     else
-      result = array[0]
-      array.shift
+      result = arr[0]
+      arr.shift
 
-      my_each_with_index(array) { |item, _index| result = yield(result, item) }
+      arr.my_each { |item| result = result.method(param[0]).call(item) }
     end
     result
   end
