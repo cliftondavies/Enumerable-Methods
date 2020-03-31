@@ -32,7 +32,7 @@ module Enumerable
     result = true
 
     if pattern
-      result = my_all_pattern?(pattern)
+      result = Pattern.my_all_pattern?(self, pattern)
     elsif block_given?
       to_a.my_each { |item| result = false unless yield(item) }
     else
@@ -45,7 +45,7 @@ module Enumerable
     result = false
 
     if pattern
-      result = my_any_pattern?(pattern)
+      result = Pattern.my_any_pattern?(self, pattern)
     elsif block_given?
       to_a.my_each { |item| result = true if yield(item) }
     else
