@@ -98,7 +98,7 @@ module Enumerable
   end
 
   def my_inject(*param)
-    arr = to_a
+    arr = to_a.dup
 
     if block_given?
       if param.size == 1
