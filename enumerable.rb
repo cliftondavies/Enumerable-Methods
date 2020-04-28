@@ -3,7 +3,7 @@ module Enumerable
   include Pattern
 
   def my_each
-    return to_enum(:my_each) unless block_given?
+    return to_enum(__method__) unless block_given?
 
     to_a.length.times { |index| yield(to_a[index]) }
 
@@ -11,7 +11,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    return to_enum(:my_each_with_index) unless block_given?
+    return to_enum(__method__) unless block_given?
 
     0.upto(to_a.length - 1) { |index| yield(to_a[index], index) }
 
@@ -19,7 +19,7 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(:my_select) unless block_given?
+    return to_enum(__method__) unless block_given?
 
     result = []
 
@@ -83,7 +83,7 @@ module Enumerable
   end
 
   def my_map(proc = nil)
-    return to_enum(:my_map) unless block_given?
+    return to_enum(__method__) unless block_given?
 
     result = []
 
