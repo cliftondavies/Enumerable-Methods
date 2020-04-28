@@ -4,25 +4,38 @@
 
 > To implement Ruby's Enumerable methods.
 
-## Getting Started
+## :rocket: Getting Started
 
-- Clone into your local environment, OR
+### Quick Start
+
 - Run on [Repl](https://repl.it/@cliftondavies/Enumerable-Methods)
+
+### Start from Scratch
 
 ### Prerequisites
 
-[Install](https://www.ruby-lang.org/en/documentation/installation/) Ruby
+[Ruby](https://www.ruby-lang.org/en/documentation/installation/)
 
 ### Usage (local environment)
 
-1. `cd` into project folder
-2. Run `ruby file_name.rb`
+- Install Ruby: https://www.ruby-lang.org/en/documentation/installation/
+- Clone repo into your local environment using your favourite terminal:
+```
+git clone [this-repo-url].git
+```
+- Run the following within the project directory
+```
+ruby file_name.rb
+```
+- Congrats! You are in. :tada:
 
-## Tools & Technologies Used
+## :toolbox: Tools & Technologies Used
 
-- Ruby.
-- Github, Git, Visual Studio Code.
+- Ruby
+- RSpec
+- Git/GitHub
 - Repl.it
+- Visual Studio Code
 
 ## Authors
 
