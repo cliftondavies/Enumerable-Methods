@@ -44,7 +44,7 @@ describe Enumerable do
   end
 
   describe '#my_all?' do
-    context 'when none of the elements are false/nil' do
+    context 'when none of the elements return false/nil' do
       context 'without block or pattern argument' do
         it 'returns true' do
           expect([].my_all?).to eql(true)
@@ -64,7 +64,7 @@ describe Enumerable do
       end
     end
 
-    context 'when at least one of the elements are false/nil' do
+    context 'when at least one of the elements return false/nil' do
       context 'without block or pattern argument' do
         it 'returns false' do
           expect([nil, true, 99].my_all?).not_to eql(true)
@@ -80,6 +80,48 @@ describe Enumerable do
       context 'with pattern argument' do
         it 'returns false' do
           expect(%w[ant bear cat].my_all?(/t/)).not_to eql(true)
+        end
+      end
+    end
+  end
+
+  describe '#my_any?' do
+    context 'when at least one of the elements return true' do
+      context 'without block or pattern argument' do
+        it 'returns true' do
+          expect([nil, true, 99].my_any?).to eql(true)
+        end
+      end
+
+      context 'with block given' do
+        it 'returns true' do
+          expect(%w[ant bear cat].my_any? { |w| w.length >= 4 }).to eql(true)
+        end
+      end
+
+      context 'with pattern argument' do
+        it 'returns true' do
+          expect([nil, true, 99].my_any?(Integer)).to eql(true)
+        end
+      end
+    end
+
+    context 'when none of the elements return true' do
+      context 'without block or pattern argument' do
+        it 'returns false' do
+          expect([].my_any?).not_to eql(true)
+        end
+      end
+
+      context 'with block given' do
+        it 'returns false' do
+          expect(%w[ant bear cat].my_all? { |w| w.length >= 5 }).not_to eql(true)
+        end
+      end
+
+      context 'with pattern argument' do
+        it 'returns false' do
+          expect(%w[ant bear cat].my_any?(/d/)).not_to eql(true)
         end
       end
     end
