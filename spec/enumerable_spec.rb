@@ -126,4 +126,46 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_none?' do
+    context 'when none of the elements return true' do
+      context 'without block or pattern argument' do
+        it 'returns true' do
+          expect([].my_none?).to eql(true)
+        end
+      end
+
+      context 'with block given' do
+        it 'returns true' do
+          expect(%w[ant bear cat].my_none? { |w| w.length == 5 }).to eql(true)
+        end
+      end
+
+      context 'with pattern argument' do
+        it 'returns true' do
+          expect(%w[ant bear cat].my_none?(/d/)).to eql(true)
+        end
+      end
+    end
+
+    context 'when at least one of the elements return true' do
+      context 'without block or pattern argument' do
+        it 'returns false' do
+          expect([nil, false, true].my_none?).not_to eql(true)
+        end
+      end
+
+      context 'with block given' do
+        it 'returns false' do
+          expect(%w[ant bear cat].my_none? { |word| word.length >= 4 }).not_to eql(true)
+        end
+      end
+
+      context 'with pattern argument' do
+        it 'returns false' do
+          expect([1, 3.14, 42].my_none?(Float)).not_to eql(true)
+        end
+      end
+    end
+  end
 end
