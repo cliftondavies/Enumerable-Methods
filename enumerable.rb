@@ -1,7 +1,5 @@
 require_relative 'pattern'
 module Enumerable
-  include Pattern
-
   def my_each
     return to_enum(__method__) unless block_given?
 
