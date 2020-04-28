@@ -1,4 +1,4 @@
-require_relative 'pattern'
+require './pattern.rb'
 module Enumerable
   def my_each
     return to_enum(__method__) unless block_given?
