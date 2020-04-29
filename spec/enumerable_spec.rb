@@ -197,7 +197,7 @@ describe Enumerable do
     end
 
     context 'with block given' do
-      it 'returns a new array with results of running block given' do
+      it 'returns a new array with results of running block' do
         expect([18, 22, 5, 6].my_map { |num| num < 10 }).to eql([false, false, true, true])
       end
     end
@@ -205,13 +205,13 @@ describe Enumerable do
     let(:p) { proc { |num| num > 10 } }
 
     context 'with proc argument' do
-      it 'returns a new array with results of running proc argument' do
+      it 'returns a new array with results of running proc' do
         expect([18, 22, 5, 6].my_map(&p)).to eql([true, true, false, false])
       end
     end
 
     context 'with proc argument and block given' do
-      it 'returns a new array with results of running proc argument instead of block' do
+      it 'returns a new array with results of running proc instead of block' do
         expect([18, 22, 5, 6].my_map(p) { |num| num < 10 }).to eql([true, true, false, false])
       end
     end
