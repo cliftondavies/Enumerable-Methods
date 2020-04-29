@@ -216,4 +216,34 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_inject' do
+    context 'when symbol is passed' do
+      context 'with initial value' do
+        it 'combines all elements by applying binary operation specified by symbol' do
+          expect([5, 6, 7, 8, 9, 10].my_inject(1, :*)).to eql(151_200)
+        end
+      end
+
+      context 'without initial value' do
+        it 'combines all elements by applying binary operation specified by symbol' do
+          expect([5, 6, 7, 8, 9, 10].my_inject(:+)).to eql(45)
+        end
+      end
+    end
+
+    context 'when block given' do
+      context 'with initial value' do
+        it 'combines all elements by applying binary operation specified by block' do
+          expect([5, 6, 7, 8, 9, 10].my_inject(1) { |prod, n| prod * n }).to eql(151_200)
+        end
+      end
+
+      context 'without initial value' do
+        it 'combines all elements by applying binary operation specified by block' do
+          expect([5, 6, 7, 8, 9, 10].my_inject { |sum, n| sum + n }).to eql(45)
+        end
+      end
+    end
+  end
 end
