@@ -157,7 +157,7 @@ describe Enumerable do
 
       context 'with block given' do
         it 'returns false' do
-          expect(%w[ant bear cat].my_none? { |word| word.length >= 4 }).not_to eql(true)
+          expect(%w[ant bear cat].my_none? { |w| w.length >= 4 }).not_to eql(true)
         end
       end
 
