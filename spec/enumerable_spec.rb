@@ -188,4 +188,32 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_map' do
+    context 'without proc argument or block given' do
+      it 'returns an Enumerator' do
+        expect([1, 2, 3, 4].my_map.is_a?(Enumerator)).to eql(true)
+      end
+    end
+
+    context 'with block given' do
+      it 'returns a new array with results of running block given' do
+        expect([18, 22, 5, 6].my_map { |num| num < 10 }).to eql([false, false, true, true])
+      end
+    end
+
+    let(:p) { proc { |num| num > 10 } }
+
+    context 'with proc argument' do
+      it 'returns a new array with results of running proc argument' do
+        expect([18, 22, 5, 6].my_map(&p)).to eql([true, true, false, false])
+      end
+    end
+
+    context 'with proc argument and block given' do
+      it 'returns a new array with results of running proc argument instead of block' do
+        expect([18, 22, 5, 6].my_map(p) { |num| num < 10 }).to eql([true, true, false, false])
+      end
+    end
+  end
 end
