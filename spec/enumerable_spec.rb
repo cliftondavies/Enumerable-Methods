@@ -168,4 +168,24 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_count' do
+    context 'without block or argument given' do
+      it 'counts the number of elements in the array' do
+        expect([1, 2, 4, 2].my_count).to eql(4)
+      end
+    end
+
+    context 'with block given' do
+      it 'counts the number of elements yielding a true value' do
+        expect([1, 2, 4, 2].my_count(&:even?)).to eql(3)
+      end
+    end
+
+    context 'with argument given' do
+      it 'counts the number of elements equal to the argument' do
+        expect([1, 2, 4, 2].my_count(2)).to eql(2)
+      end
+    end
+  end
 end
